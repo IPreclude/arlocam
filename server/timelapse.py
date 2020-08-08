@@ -55,7 +55,7 @@ def create_timelapse(datefrom, dateto):
 
         print(f"downloaded {image_fname}")
         video.write(cv2.imread(image_fpath))
-        os.remove(image_fpath)
+        
         prog = 100.0 * i / count
         db.progress.update_one({"_id": 1}, {"$set": {"x": prog}})
 
