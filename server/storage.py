@@ -73,12 +73,11 @@ def delete_file(bucket, object_name=None):
     return True
 
 
-def download_file(file_name, bucket):
+def download_file(file_name, bucket, output):
     """
     Function to download a given file from an S3 bucket
     """
     s3 = boto3.client("s3")
-    output = f"/tmp/{file_name}"
     s3.download_file(bucket, file_name, output)
 
 

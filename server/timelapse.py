@@ -43,7 +43,10 @@ def create_timelapse(datefrom, dateto):
         try:
 
             # sftp.sftp.get(sftp.remote_snaphot_path + image_fname, image_fpath)
-            download_file(image_fname, "arlocam-snapshots")
+            download_file(image_fname, "arlocam-snapshots", image_fpath)
+            print(f"downloaded {image_fname}")
+            video.write(cv2.imread(image_fpath))
+            os.remove(image_fpath)
         # except FileNotFoundError:
         #     print("The file does not exist.")
 
@@ -52,9 +55,6 @@ def create_timelapse(datefrom, dateto):
                 print("The object does not exist.")
             else:
                 raise
-
-        print(f"downloaded {image_fname}")
-        video.write(cv2.imread(image_fpath))
         
         prog = 100.0 * i / count
         db.progress.update_one({"_id": 1}, {"$set": {"x": prog}})
